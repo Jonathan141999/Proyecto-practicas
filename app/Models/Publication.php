@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publication extends Model
 {
-    protected $fillable = ['affair', 'details','hour','direction','phone','publication_date'];
+    protected $fillable = ['affair', 'details','hour','location','phone','publication_date'];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')->withTimestamps();
+    }
 }
