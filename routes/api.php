@@ -16,21 +16,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Rutas publicas
+Route::post('register', 'App\Http\Controllers\UserController@register');
+Route::post('login', 'App\Http\Controllers\UserController@authenticate');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    //Rutas para Publicaciones
+    Route::get('publications', 'App\Http\Controllers\PublicationController@index');
+    Route::get('publications/{publication}', 'App\Http\Controllers\PublicationController@show');
+    Route::post('publications', 'App\Http\Controllers\PublicationController@store');
+    Route::put('publications/{publication}', 'App\Http\Controllers\PublicationController@update');
+    Route::delete('publications/{publication}', 'App\Http\Controllers\PublicationController@delete');
+
+    //Rutas para Categorias
+
+    Route::get('categories', 'App\Http\Controllers\CategoryController@index');
+    Route::get('categories/{category}', 'App\Http\Controllers\CategoryController@show');
+    Route::post('categories', 'App\Http\Controllers\CategoryController@store');
+    Route::put('categories/{category}', 'App\Http\Controllers\CategoryController@update');
+    Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@delete');
+});
+
+
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //return $request->user();
 //});
-
-//Rutas para Publicaciones
-Route::get('publications', 'App\Http\Controllers\PublicationController@index');
-Route::get('publications/{publication}', 'App\Http\Controllers\PublicationController@show');
-Route::post('publications', 'App\Http\Controllers\PublicationController@store');
-Route::put('publications/{publication}', 'App\Http\Controllers\PublicationController@update');
-Route::delete('publications/{publication}', 'App\Http\Controllers\PublicationController@delete');
-
-//Rutas para Categorias
-
-Route::get('categories', 'App\Http\Controllers\CategoryController@index');
-Route::get('categories/{category}', 'App\Http\Controllers\CategoryController@show');
-Route::post('categories', 'App\Http\Controllers\CategoryController@store');
-Route::put('categories/{category}', 'App\Http\Controllers\CategoryController@update');
-Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@delete');
