@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Publication;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,22 +19,18 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //return $request->user();
 //});
-Route::get('publications', function() {
-    return Publication::all();
-});
-Route::get('publications/{id}', function($id) {
-    return Publication::find($id);
-});
-Route::post('publications', function(Request $request) {
-    return Publication::create($request->all());
-});
-Route::put('publications/{id}', function(Request $request, $id) {
-    $article = Publication::findOrFail($id);
-    $article->update($request->all());
-    return $article;
-});
-Route::delete('publications/{id}', function($id) {
-    Publication::find($id)->delete();
-    return 204;
-});
 
+//Rutas para Publicaciones
+Route::get('publications', 'App\Http\Controllers\PublicationController@index');
+Route::get('publications/{publication}', 'App\Http\Controllers\PublicationController@show');
+Route::post('publications', 'App\Http\Controllers\PublicationController@store');
+Route::put('publications/{publication}', 'App\Http\Controllers\PublicationController@update');
+Route::delete('publications/{publication}', 'App\Http\Controllers\PublicationController@delete');
+
+//Rutas para Categorias
+
+Route::get('categories', 'App\Http\Controllers\CategoryController@index');
+Route::get('categories/{category}', 'App\Http\Controllers\CategoryController@show');
+Route::post('categories', 'App\Http\Controllers\CategoryController@store');
+Route::put('categories/{category}', 'App\Http\Controllers\CategoryController@update');
+Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@delete');
