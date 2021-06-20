@@ -19,7 +19,7 @@ class CreatePublicationsTable extends Migration
             $table->string('details');
             $table->string('hour');
             $table->string('direction');
-            $table->integer('phone');
+            $table->string('phone');
             $table->date('publication_date');
             $table->timestamps();
         });
