@@ -41,7 +41,6 @@ class UsersTableSeeder extends Seeder
                 'password' => $password,
                 'direction'=>$faker->sentence,
                 'role'=>$faker->randomElement(['Estudiante','Empresa']),
-
             ]);
         }
     }
