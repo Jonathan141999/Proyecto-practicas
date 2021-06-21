@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publication extends Model
 {
-    protected $fillable = ['affair', 'details','hour','direction','phone','publication_date'];
+    protected $fillable = ['affair', 'details','hour','location','phone','publication_date'];
+
+    //Relacion de muchos a muchos
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User')->withTimestamps();
+    }
+    //Un categoria tine varias publicaiones
+    public function categories()
+    {
+        return $this->hasMany('App\Models\Category');
+    }
 }

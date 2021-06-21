@@ -54,4 +54,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+    public function publications()
+    {
+        return $this->belongsToMany('App\Models\Publication')->withTimestamps();
+    }
 }
