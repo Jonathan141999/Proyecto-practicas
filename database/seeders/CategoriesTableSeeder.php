@@ -18,10 +18,8 @@ class CategoriesTableSeeder extends Seeder
         Category::truncate();
         $faker = \Faker\Factory::create();
         // Crear categorias ficticios en la tabla
-        for ($i = 0; $i < 6; $i++) {
-            Category::create([
-                'name' => $faker->randomElement(['Informática','Quimica','Mecánica','Redes y Telecomunicaciones','Matematicas','Física']),
-            ]);
-        }
+        Category::create([
+            'name' =>(['Informática','Quimica','Mecánica','Redes y Telecomunicaciones','Matematicas','Física']),
+        ]);
     }
 }
