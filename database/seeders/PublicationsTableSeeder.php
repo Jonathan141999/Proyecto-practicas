@@ -18,14 +18,15 @@ class PublicationsTableSeeder extends Seeder
         Publication::truncate();
         $faker = \Faker\Factory::create();
         // Crear publicaiones ficticias
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 7; $i++) {
             Publication::create([
                 'affair' => $faker->sentence,
                 'details' => $faker->paragraph,
                 'hour'=>$faker->sentence,
                 'location'=>$faker->paragraph,
                 'phone'=>$faker->phoneNumber,
-                'publication_date'=>$faker->date($format = 'Y-m-d', $max = 'now')
+                'publication_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+                'category_id'=>$faker->numberBetween(1,6)
             ]);
         }
     }

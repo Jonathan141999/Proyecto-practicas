@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
+
 class CategoriesTableSeeder extends Seeder
 {
     /**
@@ -19,7 +20,7 @@ class CategoriesTableSeeder extends Seeder
         $faker = \Faker\Factory::create();
         // Crear categorias ficticios en la tabla
         Category::create([
-            'name' =>(['Informática','Quimica','Mecánica','Redes y Telecomunicaciones','Matematicas','Física']),
+            'name' =>$faker->randomElement(['Informática','Quimica','Mecánica','Redes y Telecomunicaciones','Matematicas','Física']),
         ]);
     }
 }
