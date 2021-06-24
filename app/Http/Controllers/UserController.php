@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserCollection;
+
 class UserController extends Controller
 {
     public function authenticate(Request $request)
@@ -66,10 +69,11 @@ class UserController extends Controller
     }
     public function index()
     {
-        return User::all();
+        return new UserCollection(User::paginate());
     }
-    public function show(User $user){
-        return $user;
+    public function show(User $user)
+    {
+        return response()->json(new UserCollection($user),200);
     }
     public function store(Request $request){
         $user = User::create($request->all());

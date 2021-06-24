@@ -21,7 +21,7 @@ class PublicationsTableSeeder extends Seeder
         for ($i = 0; $i < 7; $i++) {
             Publication::create([
                 'affair' => $faker->sentence,
-                'details' => $faker->paragraph,
+                'details' => $faker->sentence,
                 'hour'=>$faker->sentence,
                 'location'=>$faker->paragraph,
                 'phone'=>$faker->phoneNumber,
