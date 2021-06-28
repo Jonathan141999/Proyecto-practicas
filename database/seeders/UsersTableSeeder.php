@@ -31,6 +31,7 @@ class UsersTableSeeder extends Seeder
             'password' => $password,
             'direction'=> 'Tumbaco',
             'role'=>'Estudiante',
+            'description'=>'Tecnología Superior en Desarrollo de Software',
         ]);
         // Generar algunos usuarios para nuestra aplicacion
         for ($i = 0; $i < 5; $i++) {
@@ -42,6 +43,7 @@ class UsersTableSeeder extends Seeder
                 'password' => $password,
                 'direction'=>$faker->sentence,
                 'role'=>$faker->randomElement(['Estudiante','Empresa']),
+                'description'=>$faker->sentence,
             ]);
 
             $user->publications()->saveMany(

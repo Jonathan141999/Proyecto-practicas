@@ -25,7 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'direction',
-        'role'
+        'role',
+        'description',
     ];
 
     /**
@@ -57,5 +58,9 @@ class User extends Authenticatable implements JWTSubject
     public function publications()
     {
         return $this->belongsToMany('App\Models\Publication')->withTimestamps();
+    }
+    public function postulations()
+    {
+        return $this->hasMany('App\Models\Postulation');
     }
 }

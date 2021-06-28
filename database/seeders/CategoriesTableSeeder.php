@@ -19,8 +19,11 @@ class CategoriesTableSeeder extends Seeder
         Category::truncate();
         $faker = \Faker\Factory::create();
         // Crear categorias ficticios en la tabla
-        Category::create([
-            'name' =>$faker->randomElement(['Informática','Quimica','Mecánica','Redes y Telecomunicaciones','Matematicas','Física']),
-        ]);
+        $cat=array('Administración de Empresas','Agroindustria', 'Computación', 'Economía','Electricidad','Electronica y Automatización','Física','Geología','Ingeniería Ambiental','Ingeniería Civil','Ingeniería de la Producción','Ingeniría Química','Matemática','Materiales','Mecánica','Petróleos','Software','Tecnologías de la Información','Telecomunicaciones','Tecnología Superior en Agua y Sanamiento','Tecnología Superior en Desarrollo de Software','Tecnología Superior en Electromecánica','Tecnología Superior en Redes y Telecomunicaciones' );
+        for ($i = 0; $i < 23; $i++) {
+            Category::create([
+                'name' => $cat[$i],
+            ]);
+        }
     }
 }
