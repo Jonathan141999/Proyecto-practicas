@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(PublicationsTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(PostulationsTableSeeder::class);
         Schema::enableForeignKeyConstraints();
         // \App\Models\User::factory(10)->create();
     }
