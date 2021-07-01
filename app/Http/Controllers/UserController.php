@@ -35,7 +35,8 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'direction' => 'required|string|max:255',
-            'role'=>'required|string|max:255'
+            'role'=>'required|string|max:255',
+            'description'=>'required|string|max:255'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -47,7 +48,8 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'direction'=>$request->get('direction'),
-            'role'=>$request->get('role')
+            'role'=>$request->get('role'),
+            'description'=>$request->get('description')
         ]);
         $token = JWTAuth::fromUser($user);
         return response()->json(compact('user','token'),201);

@@ -30,10 +30,11 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@prueba.com',
             'password' => $password,
             'direction'=> 'Tumbaco',
-            'role'=>'Estudiante',
+            'role'=>'ROLE_ADMIN',
             'description'=>'Tecnología Superior en Desarrollo de Software',
         ]);
         // Generar algunos usuarios para nuestra aplicacion
+
         for ($i = 0; $i < 5; $i++) {
             $user = User::create([
                 'name' => $faker->name,
@@ -42,7 +43,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => $password,
                 'direction'=>$faker->sentence,
-                'role'=>$faker->randomElement(['Estudiante','Empresa']),
+                'role'=>'ROLE_BUSINESS',
                 'description'=>$faker->sentence,
             ]);
 
