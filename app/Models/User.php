@@ -28,7 +28,15 @@ class User extends Authenticatable implements JWTSubject
         'role',
         'description',
     ];
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_BUSINESS = 'ROLE_BUSINESS';
+    const ROLE_STUDENT = 'ROLE_STUDENT';
 
+    private const ROLES_HIERARCHY = [
+        self::ROLE_ADMIN => [self::ROLE_BUSINESS],
+        self::ROLE_BUSINESS => [self::ROLE_STUDENT],
+        self::ROLE_STUDENT => []
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -47,20 +55,45 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
+
     public function getJWTCustomClaims()
     {
         return [];
     }
+
     public function publications()
     {
         return $this->belongsToMany('App\Models\Publication')->withTimestamps();
     }
+
     public function postulations()
     {
         return $this->hasMany('App\Models\Postulation');
+    }
+
+    public function isGranted($role)
+    {
+        if ($role === $this->role) {
+            return true;
+        }
+        return self::isRoleInHierarchy($role, self::ROLES_HIERARCHY[$this->role]);
+    }
+    private static function isRoleInHierarchy($role, $role_hierarchy)
+    {
+        if (in_array($role, $role_hierarchy)) {
+            return true;
+        }
+        foreach ($role_hierarchy as $role_included) {
+            if(self::isRoleInHierarchy($role,self::ROLES_HIERARCHY[$role_included]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
