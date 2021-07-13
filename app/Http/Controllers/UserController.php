@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Business;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,13 +53,30 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'direction' => 'required|string|max:255',
-            'role'=>'required|string|max:255',
-            'description'=>'required|string|max:255'
+            'role'=>'required',
+            'description'=>'required|string|max:255',
+            //campos de la empresa
+            'name_business'=>'required|string',
+            'type'=>'required',
+            //campos del estudiante
+            'career'=>'required|string',
+            'semester'=>'required|string'
         ]);
+        if ($request->role=="ROLE_BUSINESS"){
+            $userable = Business::create([
+                'name_business' => $request->get('name_business'),
+                'type'=>$request->get('type')
+            ]);
+        }else{
+            $userable = Student::create([
+                'career' => $request->get('career'),
+                'semester'=>$request->get('semester')
+            ]);
+        }
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $user = User::create([
+        $user = $userable->user()->create([
             'name' => $request->get('name'),
             'last_name'=>$request->get('last_name'),
             'phone'=>$request->get('phone'),
@@ -81,6 +100,8 @@ class UserController extends Controller
                 false,
                 config('app.env') !== 'local' ? 'None' : 'Lax'
             );
+
+        return response()->json( new UserResource($user, $token), 201);
     }
     public function getAuthenticatedUser()
     {
@@ -122,6 +143,7 @@ class UserController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
         }
+        return response()->json(new UserResource($user), 200);
     }
     public function index()
     {
