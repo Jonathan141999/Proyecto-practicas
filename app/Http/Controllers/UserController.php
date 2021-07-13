@@ -6,14 +6,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
 use App\Http\Resources\User as UserResource;
 use App\Http\Resources\UserCollection;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class UserController extends Controller
 {
+    private static $messages = [
+        'required'=>'El campo: atribute es obligatorio',
+    ];
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -24,7 +27,20 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-        return response()->json(compact('token'));
+
+        $user = JWTAuth::user();
+        return response()->json(compact('user','token'))
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'), // ttl => time to live
+                '/', // path
+                null, // domain
+                config('app.env') !== 'local', // Secure
+                true, // httpOnly
+                false, //
+                config('app.env') !== 'local' ? 'None' : 'Lax' // SameSite
+            );
     }
     public function register(Request $request)
     {
@@ -52,22 +68,60 @@ class UserController extends Controller
             'description'=>$request->get('description')
         ]);
         $token = JWTAuth::fromUser($user);
-        return response()->json(compact('user','token'),201);
+
+        return response()->json(new UserResource($user, $token), 201)
+            ->withCookie(
+                'token',
+                $token,
+                config('jwt.ttl'),
+                '/',
+                null,
+                config('app.env') !== 'local',
+                true,
+                false,
+                config('app.env') !== 'local' ? 'None' : 'Lax'
+            );
     }
     public function getAuthenticatedUser()
     {
         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['message' => 'user_not_found'], 404);
             }
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
+            return response()->json(['message' => 'token_expired'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
+            return response()->json(['message' => 'token_invalid'], $e->getStatusCode());
         } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+            return response()->json(['message' => 'token_absent'], $e->getStatusCode());
         }
-        return response()->json(compact('user'));
+        return response()->json(new UserResource($user), 200);
+    }
+    public function logout()
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+//            Cookie::queue(Cookie::forget('token'));
+//            $cookie = Cookie::forget('token');
+//            $cookie->withSameSite('None');
+            return response()->json([
+                "status" => "success",
+                "message" => "User successfully logged out."
+            ], 200)
+                ->withCookie('token', null,
+                    config('jwt.ttl'),
+                    '/',
+                    null,
+                    config('app.env') !== 'local',
+                    true,
+                    false,
+                    config('app.env') !== 'local' ? 'None' : 'Lax'
+                );
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
+        }
     }
     public function index()
     {
@@ -83,6 +137,12 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
+        $this->authorize('update',$user);
+        $request->validate([
+            'phone' => 'required|string',
+            'email' => 'required|string',
+            'description'=> 'required|string',
+        ]);
         $user->update($request->all());
         return response()->json($user,200);
     }
