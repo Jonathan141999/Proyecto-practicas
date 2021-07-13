@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publication extends Model
 {
-    protected $fillable = ['affair','details','hour','location','phone','publication_date','category_id'];
+    protected $fillable = ['name','location','phone','email','hour','publication_date','type','details','image','category_id'];
 
     //Relacion de muchos a muchos
     public function users()

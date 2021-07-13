@@ -18,15 +18,20 @@ class PublicationsTableSeeder extends Seeder
         Publication::truncate();
         $faker = \Faker\Factory::create();
         // Crear publicaiones ficticias
+        $type=['public','private'];
+        $image_name=$faker->image('public/storage',400,250,null,false);
         for ($i = 0; $i < 7; $i++) {
             Publication::create([
-                'affair' => $faker->sentence,
-                'details' => $faker->sentence,
-                'hour'=>$faker->sentence,
-                'location'=>$faker->paragraph,
+                'name' => $faker->sentence,
+                'location' => $faker->sentence,
                 'phone'=>$faker->phoneNumber,
+                'email'=>$faker->companyEmail,
+                'hour'=>$faker->sentence,
                 'publication_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
-                'category_id'=>$faker->numberBetween(1,6)
+                'type'=>$faker->randomElement($type),
+                'details'=>$faker->sentence,
+                'image' => 'publications/' . $image_name,
+                'category_id'=>$faker->numberBetween(1,6),
             ]);
         }
     }

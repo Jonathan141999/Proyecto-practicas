@@ -16,12 +16,15 @@ class Publication extends JsonResource
     {
         return [
             'id' => $this->id,
-            'affair' => $this->affair,
-            'details' => $this->details,
-            'hour' => $this->hour,
+            'name' => $this->name,
             'location' => $this->location,
             'phone' => $this->phone,
+            'email' => $this->email,
+            'hour' => $this->hour,
             'publication_date' => $this->publication_date,
+            'type' => $this->type,
+            'details' => $this->details,
+            'image' => $this->image,
             'category'=>'/api/category/' . $this->category_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

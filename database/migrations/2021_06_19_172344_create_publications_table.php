@@ -15,12 +15,15 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('affair');
-            $table->string('details');
-            $table->string('hour');
+            $table->string('name');
             $table->string('location');
             $table->string('phone');
+            $table->string('email');
+            $table->string('hour');
             $table->date('publication_date');
+            $table->enum('type',['public','private']);
+            $table->string('details');
+            $table->string('image');
             $table->timestamps();
         });
         Schema::create('publication_user', function (Blueprint $table) {
