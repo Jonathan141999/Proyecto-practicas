@@ -38,6 +38,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('categories', 'App\Http\Controllers\CategoryController@store');
     Route::put('categories/{category}', 'App\Http\Controllers\CategoryController@update');
     Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@delete');
+
+    //Rutas para la postulacion Postulación
+    Route::get('postulations', 'App\Http\Controllers\PostulationController@index');
+    Route::get('postulations/{postulation}', 'App\Http\Controllers\PostulationController@show');
+    Route::post('postulations', 'App\Http\Controllers\PostulationController@store');
+    Route::put('postulations/{postulation}', 'App\Http\Controllers\PostulationController@update');
+    Route::delete('postulations/{postulation}', 'App\Http\Controllers\PostulationController@delete');
 });
 
 

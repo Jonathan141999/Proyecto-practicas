@@ -6,19 +6,26 @@ use App\Models\Publication;
 use App\Http\Resources\Publication as PublicationResource;
 use App\Http\Resources\PublicationCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PublicationController extends Controller
 {
 
     public function index()
     {
-        return new PublicationCollection(Publication::paginate());
+        return new PublicationCollection(Publication::paginate(5));
     }
     public function show(Publication $publication)
     {
         return response()->json(new PublicationResource($publication),200);
     }
-    public function store(Request $request)
+
+    public function image(Publication $publication)
+    {
+        return response()->download(public_path(Storage::url($publication->image)),
+            $publication->title);
+    }
+        public function store(Request $request)
     {
         $messages=[
             'required'=>'El campo: attribute es obligatorio',
@@ -53,13 +60,9 @@ class PublicationController extends Controller
             'name' => 'required|string',
             'location' => 'required|string',
             'phone' => 'required|string',
-            'email' => 'required|string',
             'hour' => 'required|string',
             'publication_date' => 'required|date',
-            'type' => 'required|date',
             'details' => 'required|string',
-            'image' => 'required|image',
-            'category_id' => 'required|exists:categories,id',
         ],$messages);
         $publication->update($request->all());
         return response()->json($publication, 200);

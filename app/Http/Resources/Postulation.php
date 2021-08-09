@@ -16,7 +16,7 @@ class Postulation extends JsonResource
     {
         return [
             'id' => $this->id,
-            'status' => $this->status,
+            'curriculum' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
