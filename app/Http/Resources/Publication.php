@@ -26,6 +26,8 @@ class Publication extends JsonResource
             'details' => $this->details,
             'image' => $this->image,
             'category'=>'/api/category/' . $this->category_id,
+            //'category' => new Category($this->category),
+            //'category_name'=>$this->category->name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

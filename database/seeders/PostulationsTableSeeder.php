@@ -28,9 +28,10 @@ class PostulationsTableSeeder extends Seeder
             JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
             // Y ahora con este usuario creamos algunos articulos
             $num_articles = 5;
+            //$file_pdf=$faker->file('/tpm');
             for ($j = 0; $j < $num_articles; $j++) {
                 Postulation::create([
-                    'status' => $faker->randomElement(['accepted','rejected']),
+                    'curriculum' => $faker->sentence,
                 ]);
             }
         }

@@ -15,7 +15,7 @@ class CreatePostulationsTable extends Migration
     {
         Schema::create('postulations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('status');
+            $table->string('curriculum');
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
