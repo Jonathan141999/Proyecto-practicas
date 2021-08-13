@@ -45,8 +45,7 @@ class PublicationController extends Controller
             'phone' => 'required|string',
             'email' => 'required|string',
             'hour' => 'required|string',
-            'publication_date' => 'required|date',
-            'type' => 'required|date',
+            'type' => 'required|string',
             'details' => 'required|string',
             'image' => 'required|image',
             'category_id' => 'required|exists:categories,id',
@@ -68,7 +67,6 @@ class PublicationController extends Controller
             'location' => 'required|string',
             'phone' => 'required|string',
             'hour' => 'required|string',
-            'publication_date' => 'required|date',
             'details' => 'required|string',
         ],self::$messages);
         $publication->update($request->all());

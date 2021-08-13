@@ -16,9 +16,10 @@ class CreatePostulationsTable extends Migration
         Schema::create('postulations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('languages');
+            $table->enum('type',['online','face']);
             $table->string('work_experience');
             $table->string('career');
-            $table->enum('status',['accepted','rejected']);
+            $table->enum('status',['new','pending','accepted','rejected']);
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
