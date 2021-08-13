@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryCollection as CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private static $messages = [
+        'required'=>'El campo :attribute es obligatorio',
+        'string'=>'El campo :attribute tiene que ser un string',
+    ];
     public function index()
     {
-        return Category::all();
+        return new CategoryCollection(Category::all());
+
     }
     public function show(Category $category)
     {
-        return $category;
+        $this->authorize('view', $category);
+        return response()->json(new CategoryResource($category), 200);
+
     }
     public function store(Request $request)
     {

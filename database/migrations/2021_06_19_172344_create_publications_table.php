@@ -20,7 +20,7 @@ class CreatePublicationsTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('hour');
-            $table->date('publication_date');
+            //$table->date('publication_date');
             $table->enum('type',['public','private']);
             $table->string('details');
             $table->string('image');

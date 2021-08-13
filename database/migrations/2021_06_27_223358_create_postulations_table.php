@@ -15,10 +15,15 @@ class CreatePostulationsTable extends Migration
     {
         Schema::create('postulations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('curriculum');
+            $table->string('languages');
+            $table->string('work_experience');
+            $table->string('career');
+            $table->enum('status',['accepted','rejected']);
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
         });
 
     }

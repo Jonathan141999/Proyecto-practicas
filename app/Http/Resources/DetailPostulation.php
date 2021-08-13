@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Postulation extends JsonResource
+class DetailPostulation extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class Postulation extends JsonResource
     {
         return [
             'id' => $this->id,
-            'languages' => $this->languages,
-            'work_experience' => $this->work_experience,
-            'career' => $this->career,
-            'category'=>'/api/category/' . $this->category_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            //'publication' => new Product($this->product),
+
         ];
     }
 }
