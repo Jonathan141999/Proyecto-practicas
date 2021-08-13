@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Business;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -123,28 +124,50 @@ class UserController extends Controller
         try {
             JWTAuth::invalidate(JWTAuth::getToken());
 
-//            Cookie::queue(Cookie::forget('token'));
-//            $cookie = Cookie::forget('token');
-//            $cookie->withSameSite('None');
             return response()->json([
                 "status" => "success",
                 "message" => "User successfully logged out."
-            ], 200)
-                ->withCookie('token', null,
-                    config('jwt.ttl'),
-                    '/',
-                    null,
-                    config('app.env') !== 'local',
-                    true,
-                    false,
-                    config('app.env') !== 'local' ? 'None' : 'Lax'
-                );
+            ], 200);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
         }
         return response()->json(new UserResource($user), 200);
     }
+
+    //Funciones para el cambio de contraseña
+    /*public function create(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if (!$user)
+            return response()->json([
+                'message' => 'We can\'t find a user with that e-mail address.'
+            ], 404);
+
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $random=str_shuffle($permitted_chars);
+
+        $passwordReset = PasswordReset::updateOrCreate(
+            ['email' => $user->email],
+            [
+                'email' => $user->email,
+                'token' => $random,
+            ]
+        );
+        if ($user && $passwordReset)
+            $user->notify(
+                new PasswordResetRequest($passwordReset->token)
+            );
+        return response()->json([
+            'message' => 'We have e-mailed your password reset link!'
+        ]);
+    }
+    */
+//Falta mas funciones para el cambio de contraseña
+
     public function index()
     {
         return new UserCollection(User::paginate());

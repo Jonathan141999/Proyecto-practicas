@@ -27,7 +27,7 @@ class PublicationsTableSeeder extends Seeder
                 'phone'=>$faker->phoneNumber,
                 'email'=>$faker->companyEmail,
                 'hour'=>$faker->sentence,
-                'publication_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+                //'publication_date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
                 'type'=>$faker->randomElement($type),
                 'details'=>$faker->sentence,
                 'image' => $faker->imageUrl(400, 300, null, false),

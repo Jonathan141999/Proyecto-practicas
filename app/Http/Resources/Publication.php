@@ -21,7 +21,7 @@ class Publication extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'hour' => $this->hour,
-            'publication_date' => $this->publication_date,
+            //'publication_date' => $this->publication_date,
             'type' => $this->type,
             'details' => $this->details,
             'image' => $this->image,

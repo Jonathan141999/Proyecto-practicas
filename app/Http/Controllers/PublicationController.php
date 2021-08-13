@@ -10,7 +10,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PublicationController extends Controller
 {
-
+    private static $messages = [
+        'required'=>'El campo :attribute es obligatorio',
+        'exists'=>'El parámetro :attribute no corresponde a ningun registro',
+        'integer'=>'El parámetro ingresado en :attribute no es un entero',
+        'numeric'=>'El parámetro ingresado en :attribute no es un número',
+        'string'=>'El campo :attribute tiene que ser un string',
+        'image'=>'El campo :attribute no es una imagen',
+    ];
     public function index()
     {
         return new PublicationCollection(Publication::paginate(5));
@@ -19,17 +26,18 @@ class PublicationController extends Controller
     {
         return response()->json(new PublicationResource($publication),200);
     }
-
+    public function searchProduct($name)
+    {
+        $products = Publication::search("%$name*%")->get();
+        return response()->json(new PublicationCollection($products), 200);
+    }
     public function image(Publication $publication)
     {
         return response()->download(public_path(Storage::url($publication->image)),
-            $publication->title);
+            $publication->name);
     }
-        public function store(Request $request)
+    public function store(Request $request)
     {
-        $messages=[
-            'required'=>'El campo: attribute es obligatorio',
-        ];
         $this->authorize('create', Publication::class);
         $request->validate([
             'name' => 'required|string',
@@ -42,19 +50,18 @@ class PublicationController extends Controller
             'details' => 'required|string',
             'image' => 'required|image',
             'category_id' => 'required|exists:categories,id',
-        ],$messages);
+        ],self::$messages);
         //$publication = Publication::create($request->all());
         $publication = new Publication($request->all());
         $path = $request->image->store('public/publications');
-        $publication->image = $path;
+        $publication->image = 'publications/' . basename($path);
+        $publication->setAttribute('name', $request->get('name'));
+        //$publication->image = $path;
         $publication->save();
         return response()->json(new PublicationResource($publication), 201);
     }
     public function update(Request $request,  Publication $publication)
     {
-        $messages=[
-            'required'=>'El campo: attribute es obligatorio',
-        ];
         $this->authorize('update',$publication);
         $request->validate([
             'name' => 'required|string',
@@ -63,7 +70,7 @@ class PublicationController extends Controller
             'hour' => 'required|string',
             'publication_date' => 'required|date',
             'details' => 'required|string',
-        ],$messages);
+        ],self::$messages);
         $publication->update($request->all());
         return response()->json($publication, 200);
     }

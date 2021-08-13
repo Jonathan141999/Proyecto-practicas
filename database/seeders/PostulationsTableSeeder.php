@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\DetailsPostulation;
 use App\Models\Postulation;
+use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -16,24 +18,33 @@ class PostulationsTableSeeder extends Seeder
      */
     public function run()
     {
-        // Vaciar la tabla articles.
-        Postulation::truncate();
+    Postulation::truncate();
+        DetailsPostulation::truncate();
         $faker = \Faker\Factory::create();
-        // Obtenemos la lista de todos los usuarios creados e
-        // iteramos sobre cada uno y simulamos un inicio de
-        // sesión con cada uno para crear artículos en su nombre
         $users = User::all();
-        foreach ($users as $user) {
-            // iniciamos sesión con este usuario
+        $requests = Publication::all();
+
+        foreach ($users as $user){
             JWTAuth::attempt(['email' => $user->email, 'password' => '123123']);
-            // Y ahora con este usuario creamos algunos articulos
-            $num_articles = 5;
-            //$file_pdf=$faker->file('/tpm');
-            for ($j = 0; $j < $num_articles; $j++) {
-                Postulation::create([
-                    'curriculum' => $faker->sentence,
-                ]);
-            }
+            Postulation::create([
+                'languages' => $faker->sentence,
+                'work_experience'=>$faker->paragraph,
+                'career'=>$faker->sentence,
+                'category_id'=>$faker->numberBetween(1,6),
+                'status' => $faker->randomElement(['accepted','rejected'])
+                //'user_id' => $user->id,
+            ]);
         }
+
+$requests = Postulation::all();
+
+foreach ($requests as $request) {
+    for ($i = 0; $i < 5; $i++) {
+        DetailsPostulation::create([
+            'postulation_id' => $request->id,
+            'publication_id' => $faker->numberBetween(1, 7),
+        ]);
     }
+}
+}
 }
