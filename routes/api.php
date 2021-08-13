@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 //Rutas publicas
 Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
-Route::post('users/create', 'App\Http\Controllers\UserController@create');
+//Route::post('users/create', 'App\Http\Controllers\UserController@create');
 Route::group(['middleware' => ['jwt.verify']], function() {
     //Logout
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::post('logout', 'App\Http\Controllers\UserController@logout');
+    Route::post('users/{user}', 'App\Http\Controllers\UserController@logout');
 
     //Rutas para Publicaciones
     Route::get('publications', 'App\Http\Controllers\PublicationController@index');
