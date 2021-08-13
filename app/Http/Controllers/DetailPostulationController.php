@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\DetailPostulation;
+//use App\Http\Resources\DetailPostulation;
 use App\Http\Resources\DetailPostulationCollection;
-use App\Http\Resources\DetailPostulation as PostulationResource;
+use App\Http\Resources\DetailPostulation as DetailPostulation;
+use App\Models\Postulation;
 use Illuminate\Http\Request;
 use App\Models\DetailsPostulation;
 
@@ -22,7 +23,6 @@ class DetailPostulationController extends Controller
     }
     public function show (DetailPostulation $detail)
     {
-
         return response()->json(new DetailPostulation ($detail), 200);
     }
     public function store(Request $request, Postulation $arequest)
@@ -32,8 +32,8 @@ class DetailPostulationController extends Controller
             'publication_id' => 'required|exists:publications,id',
 
         ], self::$messages);
-        $detail = $arequest->detail()->save(new DetailPostulation($request->all()));
-        return response()->json(new PostulationResource($detail), 201);
+        $detail = $arequest->detail()->save(new DetailsPostulation($request->all()));
+        return response()->json(new DetailPostulation($detail), 201);
     }
     public function update(Request $request, DetailPostulation $detail)
     {

@@ -71,10 +71,13 @@ class PostulationController extends Controller
         return response()->json($apostulation, 200);
     }
 
-    public function delete(Request $request, Postulation $postulation )
+    public function delete(Request $request, aPostulation $postulation )
     {
-        $postulation->delete();
+        $this->authorize('delete', $request);
+        $request->delete();
         return response()->json(null, 204);
+        //$postulation->delete();
+        //return response()->json(null, 204);
     }
 
     public function download(){
