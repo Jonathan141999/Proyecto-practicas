@@ -36,7 +36,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //Postulation
     Route::get('postulations', 'App\Http\Controllers\PostulationController@index');
     Route::get('postulations/{apostulation}', 'App\Http\Controllers\PostulationController@show');
-    Route::get('postulation/user', 'App\Http\Controllers\PostulationController@requestsByUser');
+    Route::get('request/user', 'App\Http\Controllers\PostulationController@requestsByUser');
     //verificar este mañana
     Route::post('postulations', 'App\Http\Controllers\PostulationController@store');
     Route::put('postulations/{apostulation}', 'App\Http\Controllers\PostulationController@update');
