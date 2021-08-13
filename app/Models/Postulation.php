@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Postulation extends Model
 {
-    protected $fillable = ['languages','work_experience','career','status','category_id'];
+    protected $fillable = ['languages','type','work_experience','career','status','category_id'];
     public static function boot()
     {
         parent::boot();
