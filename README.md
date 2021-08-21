@@ -1,62 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Poli-pasantias
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## En la Carpeta app se muestran los modelos que se utilizo en la base de datos 
 
-## About Laravel
+## El modelo User
+![image](https://user-images.githubusercontent.com/66144899/126915225-23f2248d-584e-4fd7-b45c-fa36c8914f72.png)
+</br>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## El modelo Publications
+![image](https://user-images.githubusercontent.com/66144899/126915238-5700d934-c3a3-4f96-a68d-bc0d5cb13800.png)
+</br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## El modelo Postulation
+![image](https://user-images.githubusercontent.com/66144899/126915247-fd589f7f-06fc-46cc-be85-763edab35828.png)
+</br>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## El modelo Categorias
+![image](https://user-images.githubusercontent.com/66144899/126915254-24b2fd57-e072-4e9c-b961-ac60fe5816b5.png)
+</br>
 
-## Learning Laravel
+## En la Carpeta Database se encuentran las tablas de la Base de datos en MySQL
+</br>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Modelo usuario
+En la tabla user se muestra los atributos correspondientes
+![image](https://user-images.githubusercontent.com/66144899/126915045-8e86f1e9-6f07-430b-8e3b-9da6c6b1fe0e.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Modelo Publicación
+En la tabla publications se muestra los atributos correspondientes.
+![image](https://user-images.githubusercontent.com/66144899/126915086-62a12e7b-d1dc-4f59-8331-9648a4bb9f48.png)
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Modelo Categorias
+En la tabla categories se muestra un solo atributo el cual contendra las carreras de la EPN
+</br>
+![image](https://user-images.githubusercontent.com/66144899/126915131-ae4c01c4-c5d8-4fc3-8e22-d4f118ea3f07.png)
 
-### Premium Partners
+## Relacion de Publicación con Categorias
+La relacion de estas dos tablas de uno a muchos entonces se la hace mediante la relacion que se muestra a continuación:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+![image](https://user-images.githubusercontent.com/66144899/126915164-3785cc51-7db2-4c74-baa6-427f7cf2768c.png)
 
-## Contributing
+## Modelo Postulación
+En la tabla postulations se muestra para poder subir la un documento pdf, el cual nos servira para que el estudinate pueda postular a una empresa.
+</br>
+![image](https://user-images.githubusercontent.com/66144899/126915199-ba2d6fba-a37c-450e-abb6-70111ed33c65.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Carpeta Database y Seeders
 
-## Code of Conduct
+En esta sección se muestra los datos ficticios que se utilizara para realizar las pruebas de la aplicación.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Seeder Users
+![image](https://user-images.githubusercontent.com/66144899/126915367-0f3980ed-579f-4305-8ba0-4c4c4c4e1845.png)
+</br>
+## Seeder Publications
+![image](https://user-images.githubusercontent.com/66144899/126915399-f39f3dda-cbb5-4691-a56c-d80f6008f74a.png)
+</br>
+## Seeder Categories
+![image](https://user-images.githubusercontent.com/66144899/126915415-4d4f103a-352e-4dae-b82c-c58b5c4d9522.png)
+</br>
+## Seeder Postulations
+![image](https://user-images.githubusercontent.com/66144899/126915433-103e7efe-6116-4cf9-b2ec-01ebe7cb4c5d.png)
 
-## Security Vulnerabilities
+## Rutas del proyecto
+En la carpeta routers se muestran las rutas necesarias.
+</br>
+![image](https://user-images.githubusercontent.com/66144899/126915727-f2201eb0-ce5d-4934-abec-64c1c729be12.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+</br>
+## Resultado de la Base de Datos que se creo
+</br>
+![image](https://user-images.githubusercontent.com/66144899/126915578-a0e4c7f7-7dac-48cb-9da3-8ae16197b39b.png)
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
