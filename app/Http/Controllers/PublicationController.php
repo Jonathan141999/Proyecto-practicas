@@ -26,10 +26,10 @@ class PublicationController extends Controller
     {
         return response()->json(new PublicationResource($publication),200);
     }
-    public function searchProduct($name)
+    public function searchPublication($name)
     {
-        $products = Publication::search("%$name*%")->get();
-        return response()->json(new PublicationCollection($products), 200);
+        $publications = Publication::search("%$name*%")->get();
+        return response()->json(new PublicationCollection($publications), 200);
     }
     public function image(Publication $publication)
     {
