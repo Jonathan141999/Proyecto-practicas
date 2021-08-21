@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 //Rutas publicas
 Route::post('register', 'App\Http\Controllers\UserController@register');
 Route::post('login', 'App\Http\Controllers\UserController@authenticate');
-Route::post('users/create', 'App\Http\Controllers\UserController@create');
+//Route::post('users/create', 'App\Http\Controllers\UserController@create');
 Route::group(['middleware' => ['jwt.verify']], function() {
     //Logout
     Route::get('user', 'App\Http\Controllers\UserController@getAuthenticatedUser');
     Route::post('logout', 'App\Http\Controllers\UserController@logout');
+    //Route::post('users/{user}', 'App\Http\Controllers\UserController@logout');
 
     //Rutas para Publicaciones
     Route::get('publications', 'App\Http\Controllers\PublicationController@index');
-    Route::get('product/{name}','App\Http\Controllers\PublicationController@searchProduct');
+    Route::get('publication/{name}','App\Http\Controllers\PublicationController@searchPublication');
     Route::get('publications/{publication}', 'App\Http\Controllers\PublicationController@show');
     Route::post('publications', 'App\Http\Controllers\PublicationController@store');
     Route::put('publications/{publication}', 'App\Http\Controllers\PublicationController@update');
@@ -36,7 +37,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //Postulation
     Route::get('postulations', 'App\Http\Controllers\PostulationController@index');
     Route::get('postulations/{apostulation}', 'App\Http\Controllers\PostulationController@show');
-    Route::get('request/user', 'App\Http\Controllers\PostulationController@requestsByUser');
+    Route::get('postulation/user', 'App\Http\Controllers\PostulationController@requestsByUser');
     //verificar este mañana
     Route::post('postulations', 'App\Http\Controllers\PostulationController@store');
     Route::put('postulations/{apostulation}', 'App\Http\Controllers\PostulationController@update');
@@ -58,11 +59,11 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::delete('categories/{category}', 'App\Http\Controllers\CategoryController@delete');
 
     //Rutas para la postulacion Postulación
-    Route::get('postulations', 'App\Http\Controllers\PostulationController@index');
-    Route::get('postulations/{postulation}', 'App\Http\Controllers\PostulationController@show');
-    Route::post('postulations', 'App\Http\Controllers\PostulationController@store');
-    Route::put('postulations/{postulation}', 'App\Http\Controllers\PostulationController@update');
-    Route::delete('postulations/{postulation}', 'App\Http\Controllers\PostulationController@delete');
+    //Route::get('postulations', 'App\Http\Controllers\PostulationController@index');
+    //Route::get('postulations/{postulation}', 'App\Http\Controllers\PostulationController@show');
+    //Route::post('postulations', 'App\Http\Controllers\PostulationController@store');
+    //Route::put('postulations/{postulation}', 'App\Http\Controllers\PostulationController@update');
+    //Route::delete('postulations/{postulation}', 'App\Http\Controllers\PostulationController@delete');
 });
 
 

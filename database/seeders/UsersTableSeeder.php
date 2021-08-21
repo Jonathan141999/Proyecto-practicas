@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Business;
 use App\Models\Publication;
-use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -25,36 +23,31 @@ class UsersTableSeeder extends Seeder
         // conviene hacerlo antes del for para que el seeder
         // no se vuelva lento.
         $password = Hash::make('123123');
-        $business=Business::create(['name_business' => 'Empresa JA','type' => 'private']);
-        $business->user()->create([
+        User::create([
             'name' => 'Jonathan',
             'last_name'=>'alquinga',
             'phone'=>'0983868358',
             'email' => 'admin@prueba.com',
             'password' => $password,
             'direction'=> 'Tumbaco',
-            'role'=>'ROLE_BUSINESS',
+            'role'=>'ROLE_ADMIN',
             'description'=>'Tecnología Superior en Desarrollo de Software',
         ]);
         // Generar algunos usuarios para nuestra aplicacion
 
-        for ($i = 0; $i < 5; $i++) {
-            $student = Student::create([
-               'career'=>$faker->sentence,
-               'semester'=>$faker->sentence
-            ]);
-            $student->user()->create([
+        for ($i = 0; $i < 4; $i++) {
+            $user = User::create([
                 'name' => $faker->name,
                 'last_name'=> $faker->lastName,
                 'phone'=>$faker->phoneNumber,
                 'email' => $faker->email,
                 'password' => $password,
                 'direction'=>$faker->sentence,
-                'role'=>'ROLE_STUDENT',
+                'role'=>'ROLE_BUSINESS',
                 'description'=>$faker->sentence,
             ]);
 
-            $student->user->publications()->saveMany(
+            $user->publications()->saveMany(
                 $faker->randomElements(
                     array(
                         Publication::find(1),

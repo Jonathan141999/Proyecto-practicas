@@ -20,7 +20,7 @@ class PublicationsTableSeeder extends Seeder
         // Crear publicaiones ficticias
         $type=['public','private'];
         //$image_name=$faker->image('public/storage',400,250,null,false);
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             Publication::create([
                 'name' => $faker->sentence,
                 'location' => $faker->sentence,
